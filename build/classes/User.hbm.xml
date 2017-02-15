@@ -9,9 +9,9 @@
 		<id name="id" column="id" type="integer">
 			<generator class="identity"></generator>
 		</id>
-		<property name="email" column="email" type="string" length="50"></properties>
-		<property name="password" column="password" type="string" length="50"></properties>
-		<property name="nickName" column="nickname" type="string" length="50"></properties>
-		<property name="regDate" column="regdate" type="timestamp" update="false"></properties>
+		<property name="email" column="email" type="string" length="50"></property>
+		<property name="password" column="password" type="string" length="50"></property>
+		<property name="nickName" column="nickname" type="string" length="50"></property>
+		<property name="regDate" column="regdate" type="timestamp" update="false"></property>
 	</class>
 </hibernate-mapping>

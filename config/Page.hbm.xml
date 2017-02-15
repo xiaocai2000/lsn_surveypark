@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping package="com.jizhuomi.surveypark.model">
+	<class name="Page" table="pages">
+		<id name="id" column="id" type="integer">
+			<generator class="identity"></generator>
+		</id>
+		<property name="title" column="title" type="string" length="50"/>
+		<property name="description" column="description" type="string" length="50"/>
+		<!-- 映射从Page到Survey的多对一关联 -->
+		<many-to-one name="survey" class="Survey" column="surveyid"/>
+		<!-- 映射从Page到 Question的一对多关联  -->
+		<set name="questions" inverse="true">
+			<key column="pageid"/>
+			<one-to-many class="Question"/>
+		</set>
+	</class>
+</hibernate-mapping>

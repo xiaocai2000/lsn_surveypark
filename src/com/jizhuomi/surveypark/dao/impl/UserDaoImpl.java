@@ -1,6 +1,7 @@
 package com.jizhuomi.surveypark.dao.impl;
 
 import javax.annotation.Resource;
+import javax.persistence.Entity;
 
 import org.springframework.stereotype.Repository;
 

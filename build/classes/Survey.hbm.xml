@@ -4,8 +4,8 @@
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
     
-<hibernate-mapping package="com.jizhuomi.surveypark.model">
-	<class name="User" table="users">
+<hibernate-mapping>
+	<class name="com.jizhuomi.surveypark.model.Survey" table="surveys">
 		<id name="id" column="id" type="integer">
 			<generator class="identity"></generator>
 		</id>
@@ -17,6 +17,11 @@
 		<property name="createTime" column="createtime" type="timestamp" update="false"/>
 		
 		<!-- 映射从Survey到User的多对一关联 -->
-		<many-to-one name="user" class="User" column="userid"/>
+		<many-to-one name="user" class="com.jizhuomi.surveypark.model.User" column="userid"/>
+		
+		<set name="pages" inverse="true">
+			<key column="surveyid"></key>
+			<one-to-many class="com.jizhuomi.surveypark.model.Page"/>
+		</set>
 	</class>
 </hibernate-mapping>

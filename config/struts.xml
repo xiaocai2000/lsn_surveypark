@@ -6,11 +6,63 @@
 	
 <struts>
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
-	<constant name="struts.devMode" value="true" /> 
+	<constant name="struts.devMode" value="false" /> 
+	<constant name="struts.ui.theme" value="simple"></constant>
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
 	<package name="surveypark" extends="struts-default" namespace="/">
+		<interceptors>
+			<!-- 注册登录拦截器 -->
+			<interceptor name="loginInterceptor" class="com.jizhuomi.surveypark.struts2.interceptor.LoginInterceptor"/>
+			<!-- 定义拦截器栈 -->
+			<interceptor-stack name="surveyparkStack">
+				<interceptor-ref name="loginInterceptor"/>
+				<interceptor-ref name="defaultStack">
+					<param name="modelDriven.refreshModelBeforeResult">true</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<!-- 定义默认栈 -->
+		<default-interceptor-ref name="surveyparkStack"></default-interceptor-ref>
+		
+		<!-- 定义全局结果 -->
+		<global-results>
+			<result name="login">/index.jsp</result>
+		</global-results>
+		
 		<action name="RegAction_*" class="regAction" method="{1}">
 			<result name="regPage">/reg.jsp</result>
-			<allowed-methods>toRegPage</allowed-methods>
+			<result name="input">/reg.jsp</result>
+			<result name="success">/index.jsp</result>
+			<allowed-methods>toRegPage,doReg</allowed-methods>
+		</action>
+		
+		<action name="LoginAction_*" class="loginAction" method="{1}">
+			<result name="loginPage">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="success">/index.jsp</result>
+			<allowed-methods>toLoginPage,doLogin</allowed-methods>
+		</action>
+		
+		<action name="SurveyAction_*" class="surveyAction" method="{1}">
+			<result name="mySurveyListPage">/mySurveyList.jsp</result>
+			<result name="designSurveyPage">/designSurvey.jsp</result>
+			<result name="editSurveyPage">/editSurvey.jsp</result>
+			<result name="designSurveyAction" type="redirectAction">
+				<param name="namespace">/</param>
+				<param name="actionName">SurveyAction_designSurvey</param>
+				<param name="sid">${sid}</param>
+			</result>
+			<allowed-methods>mySurveys,newSurvey,designSurvey,editSurvey,updateSurvey</allowed-methods>
+		</action>
+		
+	</package>
+	
+	<package name="ajax" extends="json-default">
+		<action name="ajaxRequest" class="helloWorld">
+			<result type="json">
+				<param name="root">map</param>
+			</result>
 		</action>
 	</package>
 </struts>

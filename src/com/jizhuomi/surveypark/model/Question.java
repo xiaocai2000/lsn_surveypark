@@ -7,6 +7,7 @@ public class Question {
 	private String title;
 	// 选项
 	private String options;
+	private String[] optionArr;
 	// 其他项
 	private boolean other;
 	// 其他项样式 0-无 1-文本框 2-下拉列表

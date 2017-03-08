@@ -1,6 +1,8 @@
 package com.jizhuomi.surveypark.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Survey {
 	private Integer id;
@@ -13,6 +15,15 @@ public class Survey {
 	
 	// 建立从Survey到User的多对一关联
 	private User user;
+	private Set<Page> pages = new HashSet<>();
+
+	public Set<Page> getPages() {
+		return pages;
+	}
+
+	public void setPages(Set<Page> pages) {
+		this.pages = pages;
+	}
 
 	public User getUser() {
 		return user;

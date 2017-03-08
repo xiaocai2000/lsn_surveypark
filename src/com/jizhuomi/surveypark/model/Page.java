@@ -11,7 +11,15 @@ public class Page {
 	// 建立从页面到调查的多对一关联
 	private Survey survey;
 	// 建立从问题到页面的一对多关联
-	private Set<Question> questions = new HashSet();
+	private Set<Question> questions = new HashSet<>();
+
+	public Set<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(Set<Question> questions) {
+		this.questions = questions;
+	}
 
 	public Integer getId() {
 		return id;
@@ -43,13 +51,5 @@ public class Page {
 
 	public void setSurvey(Survey survey) {
 		this.survey = survey;
-	}
-
-	public Set<Question> getQuestions() {
-		return questions;
-	}
-
-	public void setQuestions(Set<Question> questions) {
-		this.questions = questions;
 	}
 }

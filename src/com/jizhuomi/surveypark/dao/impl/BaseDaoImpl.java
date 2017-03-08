@@ -6,9 +6,11 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.jizhuomi.surveypark.dao.BaseDao;
+import com.jizhuomi.surveypark.model.Survey;
 
 /**
  * 抽象的dao实现，专门用于继承

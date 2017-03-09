@@ -13,7 +13,7 @@ import com.jizhuomi.surveypark.dao.BaseDao;
 import com.jizhuomi.surveypark.model.Survey;
 
 /**
- * 抽象的dao实现，专门用于继承
+ * 鎶借薄鐨刣ao瀹炵幇锛屼笓闂ㄧ敤浜庣户鎵�
  */
 public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 	@Resource
@@ -21,7 +21,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 	private Class<T> clazz;
 	
 	public BaseDaoImpl() {
-		// 得到泛型化超类
+		// 寰楀埌娉涘瀷鍖栬秴绫�
 		ParameterizedType type = (ParameterizedType) this.getClass().getGenericSuperclass();
 		clazz = (Class<T>) type.getActualTypeArguments()[0];
 	}
@@ -51,7 +51,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 	}
 
 	/**
-	 * 按照HQL语句进行批量更新
+	 * 鎸夌収HQL璇彞杩涜鎵归噺鏇存柊
 	 */
 	@Override
 	public void batchEntityByHQL(String hql, Object... objects) {

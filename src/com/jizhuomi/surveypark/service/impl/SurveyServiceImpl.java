@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jizhuomi.surveypark.dao.BaseDao;
 import com.jizhuomi.surveypark.model.Page;
@@ -14,6 +15,7 @@ import com.jizhuomi.surveypark.model.User;
 import com.jizhuomi.surveypark.service.SurveyService;
 
 @Service("surveyService")
+@Transactional
 public class SurveyServiceImpl implements SurveyService {
 	private BaseDao<Survey> surveyDao;
 	private BaseDao<Page> pageDao;

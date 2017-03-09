@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jizhuomi.surveypark.dao.BaseDao;
 import com.jizhuomi.surveypark.model.User;
@@ -12,6 +13,7 @@ import com.jizhuomi.surveypark.service.UserService;
 import com.jizhuomi.surveypark.util.ValidateUtil;
 
 @Service("userService")
+@Transactional
 public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
 
 	@Resource(name="userDao")

@@ -1,9 +1,11 @@
 package com.jizhuomi.surveypark.service.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -81,7 +83,17 @@ public class SurveyServiceImpl implements SurveyService {
 	 */
 	@Override
 	public Survey getSurvey(Integer sid) {
-		return surveyDao.getEntity(sid);
+		Set<Page> pageSet;
+		Survey survey = surveyDao.getEntity(sid);
+		
+		Hibernate.initialize(survey.getUser());
+		pageSet = survey.getPages();
+		Hibernate.initialize(survey.getPages());
+		for (Page page : pageSet) {
+			Hibernate.initialize(page.getQuestions());
+		}
+		
+		return survey;
 	}
 
 	@Override

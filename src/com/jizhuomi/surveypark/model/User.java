@@ -60,4 +60,10 @@ public class User {
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "user";
+	}
 }

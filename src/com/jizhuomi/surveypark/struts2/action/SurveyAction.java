@@ -97,4 +97,28 @@ public class SurveyAction extends BaseAction<Survey> implements UserAware {
 		surveyService.updateSurvey(model);
 		return "designSurveyAction";
 	}
+	
+	/**
+	 * 删除调查
+	 */
+	public String deleteSurvey() {
+		surveyService.deleteSurvey(sid);
+		return "findMySurveyAction";
+	}
+	
+	/**
+	 * 清除调查
+	 */
+	public String clearAnswers() {
+		surveyService.clearAnswers(sid);
+		return "findMySurveyAction";
+	}
+	
+	/**
+	 * 切换调查状态
+	 */
+	public String toggleStatus() {
+		surveyService.toggleStatus(sid);
+		return "findMySurveyAction";
+	}
 }

@@ -39,6 +39,7 @@
 			         <value>Survey.hbm.xml</value>
 			         <value>Page.hbm.xml</value>
 			         <value>Question.hbm.xml</value>
+			         <value>Answer.hbm.xml</value>
 			     </list>
 			</property>
         </bean>

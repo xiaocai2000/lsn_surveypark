@@ -15,11 +15,12 @@
 		<property name="exitText" column="exittext" type="string" length="50"/>
 		<property name="doneText" column="donetext" type="string" length="50"/>
 		<property name="createTime" column="createtime" type="timestamp" update="false"/>
+		<property name="closed" column="closed" type="boolean" update="false"></property>
 		
 		<!-- 映射从Survey到User的多对一关联 -->
 		<many-to-one name="user" class="com.jizhuomi.surveypark.model.User" column="userid"/>
 		
-		<set name="pages" inverse="true">
+		<set name="pages" inverse="true" order-by="id">
 			<key column="surveyid"></key>
 			<one-to-many class="com.jizhuomi.surveypark.model.Page"/>
 		</set>

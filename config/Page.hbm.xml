@@ -14,7 +14,7 @@
 		<!-- 映射从Page到Survey的多对一关联 -->
 		<many-to-one name="survey" class="Survey" column="surveyid"/>
 		<!-- 映射从Page到 Question的一对多关联  -->
-		<set name="questions" inverse="true">
+		<set name="questions" inverse="true" order-by="id">
 			<key column="pageid"/>
 			<one-to-many class="Question"/>
 		</set>

@@ -1,6 +1,10 @@
 package com.jizhuomi.surveypark.model;
 
+import com.jizhuomi.surveypark.util.StringUtil;
+
 public class Question {
+	private static final String RN = "\r\n";
+	
 	private Integer id;
 	// 题型
 	private int questionType;
@@ -8,6 +12,14 @@ public class Question {
 	// 选项
 	private String options;
 	private String[] optionArr;
+	public String[] getOptionArr() {
+		return optionArr;
+	}
+
+	public void setOptionArr(String[] optionArr) {
+		this.optionArr = optionArr;
+	}
+
 	// 其他项
 	private boolean other;
 	// 其他项样式 0-无 1-文本框 2-下拉列表
@@ -57,6 +69,7 @@ public class Question {
 
 	public void setOptions(String options) {
 		this.options = options;
+		this.optionArr = StringUtil.str2Arr(options, RN);
 	}
 
 	public boolean isOther() {
@@ -81,6 +94,7 @@ public class Question {
 
 	public void setOtherSelectOptions(String otherSelectOptions) {
 		this.otherSelectOptions = otherSelectOptions;
+		this.otherSelectOptionArr = StringUtil.str2Arr(otherSelectOptions, RN);
 	}
 
 	public String[] getOtherSelectOptionArr() {
@@ -97,6 +111,7 @@ public class Question {
 
 	public void setMatrixRowTitles(String matrixRowTitles) {
 		this.matrixRowTitles = matrixRowTitles;
+		this.matrixRowTitleArr = StringUtil.str2Arr(matrixRowTitles, RN);
 	}
 
 	public String[] getMatrixRowTitleArr() {
@@ -113,6 +128,7 @@ public class Question {
 
 	public void setMatrixColTitles(String matrixColTitles) {
 		this.matrixColTitles = matrixColTitles;
+		this.matrixColTitleArr = StringUtil.str2Arr(matrixColTitles, RN);
 	}
 
 	public String[] getMatrixColTitleArr() {
@@ -129,6 +145,7 @@ public class Question {
 
 	public void setMatrixSelectOptions(String matrixSelectOptions) {
 		this.matrixSelectOptions = matrixSelectOptions;
+		this.matrixSelectOptionArr = StringUtil.str2Arr(matrixSelectOptions, RN);
 	}
 
 	public String[] getMatrixSelectOptionArr() {

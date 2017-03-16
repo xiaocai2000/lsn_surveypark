@@ -17,8 +17,24 @@ import com.jizhuomi.surveypark.util.DataUtil;
 @Scope("prototype")
 public class LoginAction extends BaseAction<User> implements SessionAware {
 	private static final long serialVersionUID = 6576980225040220315L;
-	@Resource
 	private UserService userService;
+	public UserService getUserService() {
+		return userService;
+	}
+
+	@Resource
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	public Map<String, Object> getSessionMap() {
+		return sessionMap;
+	}
+
+	public void setSessionMap(Map<String, Object> sessionMap) {
+		this.sessionMap = sessionMap;
+	}
+
 	private Map<String, Object> sessionMap;
 	
 	/**

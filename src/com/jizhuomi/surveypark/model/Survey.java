@@ -12,6 +12,7 @@ public class Survey {
 	private String exitText = "退出";
 	private String doneText = "完成";
 	private Date createTime = new Date();
+	private boolean closed;
 	
 	// 建立从Survey到User的多对一关联
 	private User user;
@@ -87,5 +88,13 @@ public class Survey {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public boolean isClosed() {
+		return closed;
+	}
+
+	public void setClosed(boolean closed) {
+		this.closed = closed;
 	}
 }

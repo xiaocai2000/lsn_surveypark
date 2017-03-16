@@ -15,6 +15,9 @@
 		<property name="other" column="other" type="boolean"/>
 		<property name="otherType" column="othertype" type="int"/>
 		<property name="otherSelectOptions" column="otherselectoptions" type="string" length="50"/>
+		<property name="matrixRowTitles" column="matrixRowTitles" type="string" length="50"></property>
+		<property name="matrixColTitles" column="matrixColTitles" type="string" length="50"></property>
+		<property name="matrixSelectOptions" column="matrixSelectOptions" type="string" length="50"></property>
 		
 		<!-- 映射从Question到Page的多对一关联 -->
 		<many-to-one name="page" class="Page" column="pageid"/>

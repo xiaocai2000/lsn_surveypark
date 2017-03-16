@@ -26,7 +26,7 @@
 		
 		<!-- 0,1,2,3 -->
 		<s:if test="#qt < 4">
-			<s:iterator value="#p.optionArr">
+			<s:iterator value="#q.optionArr">
 				<input type='<s:property value="#qt < 2 ? 'radio' : 'checkbox'"/>'/>
 				<s:property/>
 				<!-- 是否携带br -->

@@ -16,6 +16,7 @@
 		<property name="doneText" column="donetext" type="string" length="50"/>
 		<property name="createTime" column="createtime" type="timestamp" update="false"/>
 		<property name="closed" column="closed" type="boolean" update="false"></property>
+		<property name="logoPhotoPath" column="logophotopath" type="string" length="200"></property>
 		
 		<!-- 映射从Survey到User的多对一关联 -->
 		<many-to-one name="user" class="com.jizhuomi.surveypark.model.User" column="userid"/>

@@ -199,4 +199,9 @@ public class SurveyServiceImpl implements SurveyService {
 		String hql = "update Survey s set s.closed = ? where s.id = ?";
 		surveyDao.batchEntityByHQL(hql, !survey.isClosed(), sid);
 	}
+	
+	public void updateLogoPhotoPath(Integer sid, String path) {
+		String hql = "update Survey s set s.logoPhotoPath=? where s.id=?";
+		surveyDao.batchEntityByHQL(hql, path, sid);
+	}
 }

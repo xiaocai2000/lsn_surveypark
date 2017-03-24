@@ -13,6 +13,7 @@ public class Survey {
 	private String doneText = "完成";
 	private Date createTime = new Date();
 	private boolean closed;
+	private String logoPhotoPath;
 	
 	// 建立从Survey到User的多对一关联
 	private User user;
@@ -96,5 +97,13 @@ public class Survey {
 
 	public void setClosed(boolean closed) {
 		this.closed = closed;
+	}
+
+	public String getLogoPhotoPath() {
+		return logoPhotoPath;
+	}
+
+	public void setLogoPhotoPath(String logoPhotoPath) {
+		this.logoPhotoPath = logoPhotoPath;
 	}
 }

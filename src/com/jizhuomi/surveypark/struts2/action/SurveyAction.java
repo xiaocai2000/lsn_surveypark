@@ -1,9 +1,12 @@
 package com.jizhuomi.surveypark.struts2.action;
 
+import java.io.File;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 
+import org.apache.struts2.util.ServletContextAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -11,14 +14,28 @@ import com.jizhuomi.surveypark.model.Survey;
 import com.jizhuomi.surveypark.model.User;
 import com.jizhuomi.surveypark.service.SurveyService;
 import com.jizhuomi.surveypark.struts2.UserAware;
+import com.jizhuomi.surveypark.util.ValidateUtil;
 
 @Controller("surveyAction")
 @Scope("prototype")
-public class SurveyAction extends BaseAction<Survey> implements UserAware {
+public class SurveyAction extends BaseAction<Survey> implements UserAware, ServletContextAware {
 	private static final long serialVersionUID = -4712180478274769593L;
 
 	private SurveyService surveyService;
 	private Integer sid;
+	private File logoPhoto;
+	private String logoPhotoFileName;
+	private User user;
+	private ServletContext sc;
+	private String inputPage;
+
+	public String getInputPage() {
+		return inputPage;
+	}
+
+	public void setInputPage(String inputPage) {
+		this.inputPage = inputPage;
+	}
 
 	public Integer getSid() {
 		return sid;
@@ -36,8 +53,6 @@ public class SurveyAction extends BaseAction<Survey> implements UserAware {
 	public void setMySurveys(List<Survey> mySurveys) {
 		this.mySurveys = mySurveys;
 	}
-
-	private User user;
 
 	public SurveyService getSurveyService() {
 		return surveyService;
@@ -72,6 +87,22 @@ public class SurveyAction extends BaseAction<Survey> implements UserAware {
 		this.user = user;
 	}
 	
+	public File getLogoPhoto() {
+		return logoPhoto;
+	}
+
+	public void setLogoPhoto(File logoPhotoFile) {
+		this.logoPhoto = logoPhotoFile;
+	}
+
+	public String getLogoPhotoFileName() {
+		return logoPhotoFileName;
+	}
+
+	public void setLogoPhotoFileName(String logoPhotoFileName) {
+		this.logoPhotoFileName = logoPhotoFileName;
+	}
+
 	/**
 	 * 设计调查
 	 */
@@ -120,5 +151,48 @@ public class SurveyAction extends BaseAction<Survey> implements UserAware {
 	public String toggleStatus() {
 		surveyService.toggleStatus(sid);
 		return "findMySurveyAction";
+	}
+	
+	/**
+	 * 到达增加logo的页面
+	 */
+	public String toAddLogoPage() {
+		return "addLogoPage";
+	}
+	
+	public String doAddLogo() {
+		if (ValidateUtil.isValid(logoPhotoFileName)) {
+			String dir = sc.getRealPath("/upload");
+			String ext = logoPhotoFileName.substring(logoPhotoFileName.lastIndexOf("."));
+			long l = System.nanoTime();
+			File newFile = new File(dir, l + ext);
+			logoPhoto.renameTo(newFile);
+			surveyService.updateLogoPhotoPath(sid, "/upload/" + l + ext);
+		}
+		return "designSurveyAction";
+	}
+	
+	public void prepareUpdateSurvey() {
+		inputPage = "/editSurvey.jsp";
+	}
+	
+	public void prepareDoAddLogo() {
+		inputPage = "/addLogo.jsp";
+	}
+
+	@Override
+	public void setServletContext(ServletContext arg0) {
+		// TODO Auto-generated method stub
+		this.sc = arg0;
+	}
+	
+	public boolean photoExists() {
+		String path = model.getLogoPhotoPath();
+		if (ValidateUtil.isValid(path)) {
+			String absPath = sc.getRealPath(path);
+			File file = new File(absPath);
+			return file.exists();
+		}
+		return false;
 	}
 }

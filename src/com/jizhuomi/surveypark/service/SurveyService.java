@@ -77,4 +77,6 @@ public interface SurveyService {
 	 */
 	public void toggleStatus(Integer sid);
 
+	public void updateLogoPhotoPath(Integer sid, String path);
+
 }

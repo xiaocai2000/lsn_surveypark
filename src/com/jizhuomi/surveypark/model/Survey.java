@@ -14,6 +14,8 @@ public class Survey {
 	private Date createTime = new Date();
 	private boolean closed;
 	private String logoPhotoPath;
+	private float minOrderno;
+	private float maxOrderno;
 	
 	// 建立从Survey到User的多对一关联
 	private User user;
@@ -89,6 +91,22 @@ public class Survey {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public float getMinOrderno() {
+		return minOrderno;
+	}
+
+	public void setMinOrderno(float minOrderno) {
+		this.minOrderno = minOrderno;
+	}
+
+	public float getMaxOrderno() {
+		return maxOrderno;
+	}
+
+	public void setMaxOrderno(float maxOrderno) {
+		this.maxOrderno = maxOrderno;
 	}
 
 	public boolean isClosed() {

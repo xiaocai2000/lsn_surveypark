@@ -13,7 +13,7 @@
 		<property name="title" column="title" type="string" length="50"/>
 		<property name="options" column="options" type="string" length="50"/>
 		<property name="other" column="other" type="boolean"/>
-		<property name="otherType" column="othertype" type="int"/>
+		<property name="otherStyle" column="otherStyle" type="int"/>
 		<property name="otherSelectOptions" column="otherselectoptions" type="string" length="50"/>
 		<property name="matrixRowTitles" column="matrixRowTitles" type="string" length="50"></property>
 		<property name="matrixColTitles" column="matrixColTitles" type="string" length="50"></property>

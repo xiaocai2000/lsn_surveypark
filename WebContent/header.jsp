@@ -9,7 +9,7 @@
 		<s:a action="LoginAction_toLoginPage" namespace="/">[首页]</s:a>&nbsp;
 		<s:a action="SurveyAction_newSurvey" namespace="/">[新建调查]</s:a>&nbsp;
 		<s:a action="SurveyAction_mySurveys" namespace="/">[我的调查]</s:a>&nbsp;
-		[参与调查]&nbsp;
+		<s:a action="EngageSurveyAction_findAllAvailableSurveys" namespace="/">[参与调查]</s:a>&nbsp;
 		<s:a action="RegAction_toRegPage" namespace="/">[用户注册]</s:a>&nbsp;
 		[用户授权管理]&nbsp;
 		[角色管理]&nbsp;

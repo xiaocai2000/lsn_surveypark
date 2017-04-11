@@ -16,6 +16,7 @@ import com.jizhuomi.surveypark.model.Question;
 import com.jizhuomi.surveypark.model.Survey;
 import com.jizhuomi.surveypark.model.User;
 import com.jizhuomi.surveypark.service.SurveyService;
+import com.jizhuomi.surveypark.util.DataUtil;
 
 @Service("surveyService")
 @Transactional
@@ -203,5 +204,112 @@ public class SurveyServiceImpl implements SurveyService {
 	public void updateLogoPhotoPath(Integer sid, String path) {
 		String hql = "update Survey s set s.logoPhotoPath=? where s.id=?";
 		surveyDao.batchEntityByHQL(hql, path, sid);
+	}
+	
+	/**
+	 * 查询调查集合，携带pages 
+	 */
+	public List<Survey> getSurveyWithPages(User user) {
+		String hql = "from Survey s where s.user.id=?";
+		List<Survey> list = surveyDao.findEntityByHQL(hql, user.getId());
+		for (Survey s : list) {
+			s.getPages().size();
+		}
+		return list;
+	}
+	
+	public void moveOrCopyPage(Integer srcPid, Integer targPid, int pos) {
+		Page srcPage = this.getPage(srcPid);
+		Survey srcSurvey = srcPage.getSurvey();
+		Page targPage = this.getPage(targPid);
+		Survey targSurvey = targPage.getSurvey();
+		
+		if (srcSurvey.getId().equals(targSurvey.getId())) {
+			setOrderno(srcPage, targPage, pos);
+		} else {
+			srcPage.getQuestions().size();
+			Page copyPage = (Page) DataUtil.deeplyCopy(srcPage);
+			copyPage.setSurvey(targSurvey);
+			pageDao.saveEntity(copyPage);
+			for (Question q : copyPage.getQuestions()) {
+				questionDao.saveEntity(q);
+			}
+			setOrderno(copyPage, targPage, pos);
+		}
+	}
+
+	private void setOrderno(Page srcPage, Page targPage, int pos) {
+		// TODO Auto-generated method stub
+		if (0 == pos) {
+			if (isFirstPage(targPage)) {
+				srcPage.setOrderno(targPage.getOrderno() - 0.01f);
+			} else {
+				Page prePage = getPrePage(targPage);
+				srcPage.setOrderno((targPage.getOrderno() + prePage.getOrderno()) / 2);
+			}
+		} else {
+			if (isLastPage(targPage)) {
+				srcPage.setOrderno(targPage.getOrderno() + 0.01f);
+			} else {
+				Page nextPage = getNextPage(targPage);
+				srcPage.setOrderno((targPage.getOrderno() + nextPage.getOrderno()) / 2);
+			}
+		}
+	}
+
+	private Page getNextPage(Page targPage) {
+		// TODO Auto-generated method stub
+		String hql = "from Page p where p.survey.id = ? and p.orderno > ? order by p.orderno asc";
+		List<Page> list = pageDao.findEntityByHQL(hql, targPage.getSurvey().getId(), targPage.getOrderno());
+		return list.get(0);
+	}
+
+	private boolean isLastPage(Page targPage) {
+		// TODO Auto-generated method stub
+		String hql = "select count(*) from Page p where p.survey.id = ? and p.orderno > ?";
+		Long count = (Long) pageDao.uniqueResult(hql, targPage.getSurvey().getId(), targPage.getOrderno());
+		return count == 0;
+	}
+
+	private Page getPrePage(Page targPage) {
+		// TODO Auto-generated method stub
+		String hql = "from Page p where p.survey.id = ? and p.orderno < ? order by p.orderno desc";
+		List<Page> list = pageDao.findEntityByHQL(hql, targPage.getSurvey().getId(), targPage.getOrderno());
+		return list.get(0);
+	}
+
+	private boolean isFirstPage(Page targPage) {
+		// TODO Auto-generated method stub
+		String hql = "select count(*) from Page p where p.survey.id = ? and p.orderno < ?";
+		Long count = (Long) pageDao.uniqueResult(hql, targPage.getSurvey().getId(), targPage.getOrderno());
+		return count == 0;
+	}
+	
+	public List<Survey> findAllAvailableSurveys() {
+		String hql = "from Survey s where s.closed = ?";
+		return surveyDao.findEntityByHQL(hql, false);
+	}
+	
+	public Page getFirstPage(Integer sid) {
+		String hql = "from Page p where p.survey.id = ? order by p.orderno asc";
+		List<Page> list = pageDao.findEntityByHQL(hql, sid);
+		Page p = list.get(0);
+		p.getQuestions().size();
+		p.getSurvey().getTitle();
+		return p;
+	}
+	
+	public Page getPrePage(Integer currPid) {
+		Page p = this.getPage(currPid);
+		p = this.getPrePage(p);
+		p.getQuestions().size();
+		return p;
+	}
+	
+	public Page getNextPage(Integer currPid) {
+		Page p = this.getPage(currPid);
+		p = this.getNextPage(p);
+		p.getQuestions().size();
+		return p;
 	}
 }

@@ -7,4 +7,16 @@ public class StringUtil {
 		}
 		return null;
 	}
+
+	public static boolean contains(String[] values, String value) {
+		// TODO Auto-generated method stub
+		if (ValidateUtil.isValid(values)) {
+			for (String s : values) {
+				if (s.equals(value)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

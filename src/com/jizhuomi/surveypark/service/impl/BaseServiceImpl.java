@@ -76,4 +76,10 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 		return dao.findEntityByHQL(hql, objects);
 	}
 
+	@Override
+	public Object uniqueResult(String hql, Object... objects) {
+		// TODO Auto-generated method stub
+		return dao.uniqueResult(hql, objects);
+	}
+
 }

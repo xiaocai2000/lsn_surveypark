@@ -1,17 +1,29 @@
 package com.jizhuomi.surveypark.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Page {
+public class Page implements Serializable {
+	private static final long serialVersionUID = 6329566776787831241L;
 	private Integer id;
 	private String title = "未命名";
 	private String description;
 
 	// 建立从页面到调查的多对一关联
-	private Survey survey;
+	private transient Survey survey;
 	// 建立从问题到页面的一对多关联
 	private Set<Question> questions = new HashSet<>();
+	
+	private float orderno;
+
+	public float getOrderno() {
+		return orderno;
+	}
+
+	public void setOrderno(float orderno) {
+		this.orderno = orderno;
+	}
 
 	public Set<Question> getQuestions() {
 		return questions;
@@ -27,6 +39,9 @@ public class Page {
 
 	public void setId(Integer id) {
 		this.id = id;
+		if (id != null) {
+			this.orderno = id;
+		}
 	}
 
 	public String getTitle() {

@@ -16,4 +16,14 @@ public class ValidateUtil {
 	public static boolean isValid(Collection col) {
 		return !(col == null || col.isEmpty());
 	}
+	
+	/**
+	 * 判断数组有效性
+	 */
+	public static boolean isValid(Object[] arr) {
+		if (null == arr || 0 == arr.length) {
+			return false;
+		}
+		return true;
+	}
 }

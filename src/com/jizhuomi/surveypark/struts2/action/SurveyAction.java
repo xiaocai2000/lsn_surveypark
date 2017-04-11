@@ -167,6 +167,7 @@ public class SurveyAction extends BaseAction<Survey> implements UserAware, Servl
 			long l = System.nanoTime();
 			File newFile = new File(dir, l + ext);
 			logoPhoto.renameTo(newFile);
+			System.out.println("upload success " + newFile.getAbsolutePath());
 			surveyService.updateLogoPhotoPath(sid, "/upload/" + l + ext);
 		}
 		return "designSurveyAction";

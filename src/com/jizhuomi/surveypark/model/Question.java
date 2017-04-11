@@ -1,8 +1,12 @@
 package com.jizhuomi.surveypark.model;
 
+import java.io.Serializable;
+
 import com.jizhuomi.surveypark.util.StringUtil;
 
-public class Question {
+public class Question implements Serializable {
+	private static final long serialVersionUID = 4493835239427710073L;
+
 	private static final String RN = "\r\n";
 	
 	private Integer id;
@@ -23,7 +27,7 @@ public class Question {
 	// 其他项
 	private boolean other;
 	// 其他项样式 0-无 1-文本框 2-下拉列表
-	private int otherType;
+	private int otherStyle;
 	// 其他项下拉选项
 	private String otherSelectOptions;
 	private String[] otherSelectOptionArr;
@@ -80,12 +84,12 @@ public class Question {
 		this.other = other;
 	}
 
-	public int getOtherType() {
-		return otherType;
+	public int getOtherStyle() {
+		return otherStyle;
 	}
 
-	public void setOtherType(int otherType) {
-		this.otherType = otherType;
+	public void setOtherStyle(int otherStyle) {
+		this.otherStyle = otherStyle;
 	}
 
 	public String getOtherSelectOptions() {

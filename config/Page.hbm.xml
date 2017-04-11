@@ -11,6 +11,10 @@
 		</id>
 		<property name="title" column="title" type="string" length="50"/>
 		<property name="description" column="description" type="string" length="50"/>
+		<property name="orderno" type="float">
+			<column name="orderno" sql-type="decimal(10,5)"/>
+		</property>
+		
 		<!-- 映射从Page到Survey的多对一关联 -->
 		<many-to-one name="survey" class="Survey" column="surveyid"/>
 		<!-- 映射从Page到 Question的一对多关联  -->

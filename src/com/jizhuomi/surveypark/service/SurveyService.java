@@ -79,4 +79,17 @@ public interface SurveyService {
 
 	public void updateLogoPhotoPath(Integer sid, String path);
 
+	/**
+	 * 查询调查集合，携带pages 
+	 */
+	public List<Survey> getSurveyWithPages(User user);
+
+	public void moveOrCopyPage(Integer srcPid, Integer targPid, int pos);
+
+	public List<Survey> findAllAvailableSurveys();
+
+	public Page getFirstPage(Integer sid);
+
+	public Page getPrePage(Integer currPid);
+	public Page getNextPage(Integer currPid);
 }

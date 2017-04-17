@@ -2,6 +2,7 @@ package com.jizhuomi.surveypark.service;
 
 import java.util.List;
 
+import com.jizhuomi.surveypark.model.Answer;
 import com.jizhuomi.surveypark.model.Page;
 import com.jizhuomi.surveypark.model.Question;
 import com.jizhuomi.surveypark.model.Survey;
@@ -92,4 +93,6 @@ public interface SurveyService {
 
 	public Page getPrePage(Integer currPid);
 	public Page getNextPage(Integer currPid);
+
+	public void saveAnswers(List<Answer> processAnswers);
 }

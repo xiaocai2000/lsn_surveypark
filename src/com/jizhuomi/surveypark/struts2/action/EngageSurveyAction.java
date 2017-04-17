@@ -4,11 +4,13 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.EventListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -20,6 +22,7 @@ import org.apache.struts2.util.ServletContextAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.jizhuomi.surveypark.model.Answer;
 import com.jizhuomi.surveypark.model.Page;
 import com.jizhuomi.surveypark.model.Survey;
 import com.jizhuomi.surveypark.service.SurveyService;
@@ -136,6 +139,7 @@ public class EngageSurveyAction extends BaseAction<Survey> implements ServletCon
 		// 完成
 		else if (submitName.endsWith("done")) {
 			mergeParamsIntoSession();
+			surveyService.saveAnswers(processAnswers());
 			clearSessionData();
 			return "engageSurveyAction";
 		}
@@ -145,6 +149,74 @@ public class EngageSurveyAction extends BaseAction<Survey> implements ServletCon
 			return "engageSurveyAction";
 		}
 		return null;
+	}
+
+	private List<Answer> processAnswers() {
+		// TODO Auto-generated method stub
+		Map<Integer, String> matrixRadioMap = new HashMap<Integer, String>();
+		List<Answer> answers = new ArrayList<Answer>();
+		Answer a = null;
+		String key = null;
+		String[] value = null;
+		Map<Integer, Map<String, String[]>> allMap = getAllParamsMap();
+		for (Map<String, String[]> map : allMap.values()) {
+			for (Entry<String, String[]> entry : map.entrySet()) {
+				key = entry.getKey();
+				value = entry.getValue();
+				if (key.startsWith("q")) {
+					if (!key.contains("other") &&
+							!key.contains("_")) {
+						a = new Answer();
+						a.setAnswerIds(StringUtil.arr2Str(value));
+						a.setQuestionId(getQid(key));
+						a.setSurveyId(getCurrentSurvey().getId());
+						a.setOtherAnswer(StringUtil.arr2Str(map.get(key + "other")));
+						answers.add(a);
+					} else if (key.contains("_")) {
+						Integer radioQid = getMatrixRadioQid(key);
+						String oldValue = matrixRadioMap.get(radioQid);
+						if (null == oldValue) {
+							matrixRadioMap.put(radioQid, StringUtil.arr2Str(value));
+						} else {
+							matrixRadioMap.put(radioQid, oldValue + "," + StringUtil.arr2Str(value));
+						}
+					}
+				}
+			}
+		}
+		processMatrixRadioMap(matrixRadioMap, answers);
+		return answers;
+	}
+
+	private void processMatrixRadioMap(Map<Integer, String> matrixRadioMap, List<Answer> answers) {
+		// TODO Auto-generated method stub
+		Answer a = null;
+		Integer key = null;
+		String value = null;
+		for (Entry<Integer, String> entry : matrixRadioMap.entrySet()) {
+			key = entry.getKey();
+			value = entry.getValue();
+			a = new Answer();
+			a.setAnswerIds(value);
+			a.setQuestionId(key);
+			a.setSurveyId(getCurrentSurvey().getId());
+			answers.add(a);
+		}
+	}
+
+	private Integer getMatrixRadioQid(String key) {
+		// TODO Auto-generated method stub
+		return Integer.parseInt(key.substring(1, key.lastIndexOf("_")));
+	}
+
+	private Survey getCurrentSurvey() {
+		// TODO Auto-generated method stub
+		return (Survey) sessionMap.get(CURRENT_SURVEY);
+	}
+
+	private Integer getQid(String key) {
+		// TODO Auto-generated method stub
+		return Integer.parseInt(key.substring(1));
 	}
 
 	private void clearSessionData() {

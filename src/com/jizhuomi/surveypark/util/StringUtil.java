@@ -19,4 +19,16 @@ public class StringUtil {
 		}
 		return false;
 	}
+
+	public static String arr2Str(String[] value) {
+		// TODO Auto-generated method stub
+		String temp = "";
+		if (ValidateUtil.isValid(value)) {
+			for (String s : value) {
+				temp += s + ",";
+			}
+			return temp.substring(0, temp.length() - 1);
+		}
+		return temp;
+	}
 }

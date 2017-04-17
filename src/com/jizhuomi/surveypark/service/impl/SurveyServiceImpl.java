@@ -1,7 +1,9 @@
 package com.jizhuomi.surveypark.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -311,5 +313,15 @@ public class SurveyServiceImpl implements SurveyService {
 		p = this.getNextPage(p);
 		p.getQuestions().size();
 		return p;
+	}
+	
+	public void saveAnswers(List<Answer> list) {
+		Date date = new Date();
+		String uuid = UUID.randomUUID().toString();
+		for (Answer a : list) {
+			a.setUuid(uuid);
+			a.setAnswerTime(date);
+			answerDao.saveEntity(a);
+		}
 	}
 }
